@@ -85,7 +85,7 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+  },
 ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
@@ -112,3 +112,72 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+// Add new article
+
+data.push({
+  title: 'Article I Added',
+  date: 'Apr 8th, 2020',
+  firstParagraph: `Chartreuse flannel yuccie, knausgaard poke semiotics photo booth pug celiac bushwick bespoke slow-carb yr 8-bit next level. Austin distillery pabst beard, ethical +1 cornhole lyft. Umami godard semiotics church-key +1 keffiyeh polaroid flexitarian everyday carry photo booth. Fanny pack farm-to-table shabby chic put a bird on it chambray wayfarers echo park tilde bitters craft beer literally. Cold-pressed cornhole franzen readymade, taiyaki meditation cloud bread crucifix trust fund adaptogen coloring book pok pok enamel pin swag fingerstache.`,
+
+  secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+        hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+        hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+        hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+  thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+        Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+        Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+});
+
+// grab parent element
+const articlesContainer = document.querySelector('.articles');
+
+// make function
+function makeArticle({ title, date, firstParagraph, secondPargraph, thirdParagraph }) {
+  
+  // instantiate elements
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paragraph1 = document.createElement('p');
+  const paragraph2 = document.createElement('p');
+  const paragraph3 = document.createElement('p');
+  const button = document.createElement('span');
+
+  // structure elements
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(paragraph1);
+  article.appendChild(paragraph2);
+  article.appendChild(paragraph3);
+  article.appendChild(button);
+
+  // add classes
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  button.classList.add('expandButton');
+
+  // set text content
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  paragraph1.textContent = firstParagraph;
+  paragraph2.textContent = secondPargraph;
+  paragraph3.textContent = thirdParagraph;
+  button.textContent = 'Read More';
+
+  // add event listener
+  button.addEventListener('click', (event) => {
+    article.classList.toggle('article-open');
+});
+  return article;
+}
+
+// add to the DOM
+const articleElements = data.map(articleData => makeArticle(articleData));
+
+articleElements.forEach(article => {
+  articlesContainer.appendChild(article);
+})
+
+
